@@ -117,9 +117,9 @@ Required: Config file. This lists the various input information such as data fil
 If both are set to '1', both destruction and nucleation are calculated. 
 
 ### Data Output Controls
-*io_disk_n_steps* : Number of cycles until a dump file is updated.  
+*io_dump_n_steps* : Number of cycles until a dump file is updated.  
 
-*io_screen_n_steps*: Number of cycles until a restart file is updated. 
+*io_restart_n_steps*: Number of cycles until a restart file is updated. 
 
 ### User Specified Shock Parameters
 *pile_up_factor*: This is used to calculate the increase in density when a shock passes through. The density if multiplied by this number. 
@@ -167,7 +167,7 @@ To run a test of nudustc++,
 ./nudustc++ -c data/inputs/test_config.ini
 ```
 
-This will produce data files in the build directory's "output/" directory and restart data in the "restart/" directory.
+nuDustC++ should complete the test run in under a minute in release mode. If it doesn't, try changing the configuration file to output data after more cycles by changing *io_dump_n_steps* and *io_restart_n_steps*. This will produce data files in the build directory's "output/" directory and restart data in the "restart/" directory.
 
 # Restarting a Run
 nuDustC++ automatically checks for restart files when creating each cell. If a restart file is found, that data is loaded into the cell object. If no restart file is found, the cell is initialized with data from the input files. Make sure the same config file used to start the run is selected when restarting. 
