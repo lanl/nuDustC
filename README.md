@@ -8,18 +8,18 @@ nuDustC++ is used to calculate the dust neclation and destruction in gaseous sys
 ***All Units are in CGS***
 
 # Installation
-### Dependancies
+## Dependancies
 **Required:** OpenMP, MPI, Boost, SunDials, Plog.
 This build uses cmake. 
 
-**Plog** 
+### Plog 
 Plog is a header only package. Running cmake fetches Plog, but it can also be aquired by:
 
 ```
 git clone git@github.com:SergiusTheBest/plog.git
 ```
 
-**Boost**
+### Boost
 If using conda, install boost as:
 
 ```
@@ -30,7 +30,7 @@ Further documentation and installation of Boost can be found at:
 
 https://www.boost.org/
 
-**Sundials**
+### Sundials
 On MacOS using HomeBrew, run:
 
 ```
@@ -41,7 +41,7 @@ Installation instructions for sundials can be found at:
 
 https://computing.llnl.gov/projects/sundials
 
-### Building nuDustC++
+## Building nuDustC++
 In order to build nuDustC++, go to the head of the git repository (nuDustC/) and run:
 
 ```
