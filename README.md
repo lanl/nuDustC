@@ -29,6 +29,15 @@ Further documentation and installation of Boost can be found at:
 
 https://www.boost.org/
 
+### Sundials
+On MacOS using HomeBrew, run:
+
+```
+brew install sundials
+```
+
+Installation instructions for sundials can be found here: [sundials](https://computing.llnl.gov/projects/sundials)
+
 # Building nuDustC++
 In order to build nuDustC++, go to the head of the git repository (nudustc/) and run:
 
