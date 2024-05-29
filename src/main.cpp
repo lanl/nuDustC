@@ -116,13 +116,12 @@ int main(int argc, char *argv[]) {
   plog::init<DetailLog_Root>(plog::info, &rootAppender);
   plog::init<DetailLog_Rank>(plog::info, &rankAppender);
 
-  // SCLOG_0(rank) << "nuDust has started";
-  // SCLOG_A(rank) << "starting ...\n";
-  std::cout << "! nuDust has started\n";
+  std::cout << "! nuDust has started.\n";
   PLOGI << "nuDust has started";
   nuDust nd(config_filename, size, rank);
   std::cout << "! defined cells\n";
   nd.run();
+  std::cout << "! nuDust has finished!\n";
 
 #ifdef ENABLE_BENCHMARK
   for (const auto &[k, v] : benchmark_map) {

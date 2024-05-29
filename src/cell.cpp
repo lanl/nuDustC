@@ -162,12 +162,14 @@ cell::solve()
   {
     time_start = env_times[0];
     time_end = env_times.back();
-    PLOGD << "Times taken from from environment file.";
+    PLOGI << "Times taken from environment file.";
+    PLOGI << "Start time: " << time_start << ", end time: " << time_end;
   }
   else
   {
     time_start = cell_st.start_time;
     time_end = cell_st.start_time + 3.14e7;
+    PLOGI << "End Time is not specified, running simulation out for another year. End Time: " << time_end;
   }
   auto dt0             = config->ode_dt_0;
   auto rkd             = runge_kutta_dopri5<std::vector<double>>{};
