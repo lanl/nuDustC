@@ -39,7 +39,7 @@ brew install sundials
 
 Installation instructions for sundials can be found at: 
 
-https://computing.llnl.gov/projects/sundials
+https://computing.llnl.gov/projects/sundials/faq#inst
 
 ## Building nuDustC++
 In order to build nuDustC++, go to the head of the git repository (nuDustC/) and run:
