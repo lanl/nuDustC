@@ -7,7 +7,7 @@ nuDustC++ is used to calculate the dust neclation and destruction in gaseous sys
 
 ***All Units are in CGS***
 
-### Requirements
+# Requirements
 **Required:** OpenMP, MPI, Boost, SunDials, Plog.
 This build uses cmake. 
 
