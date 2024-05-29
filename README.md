@@ -39,6 +39,15 @@ $> cmake .. ;
 $> make;
 ```
 
+To build nuDustC++ in release mode to run faster, instead of the above, run:
+
+```
+$> mkdir build;
+$> cd build;
+$> cmake -DCMAKE_BUILD_TYPE=Release .. ;
+$> make;
+```
+
 Run nuDustc with
 
 ```
