@@ -74,6 +74,8 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:~/miniconda3/lib ./nudust++ -c data/inputs/te
 
 Or specifying the paths to the packages and libraries in *LD_LIBRARY_PATH*.
 
+The default had OpenMP (NUDUSTC_ENABLE_OPENMP) turned on and MPI (NUDUSTC_ENABLE_MPI) and sundials (NUDUSTC_USE_SUNDIALS) are turned off. This can be edited in the CMakeLists.txt file. 
+
 ### Inputs
 Required: Config file. This lists the various input information such as data files, integration parameters, and calculation options.
 
