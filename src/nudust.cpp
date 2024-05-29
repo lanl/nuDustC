@@ -670,7 +670,7 @@ nuDust::run()
     }
 
     // cells.size()
-    #pragma omp parallel num_threads(36)
+    #pragma omp parallel num_threads(3)
     {
         #pragma omp for nowait
         for (auto i = 0; i < cells.size(); ++i)
