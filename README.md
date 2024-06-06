@@ -7,7 +7,8 @@ nuDustC++ is used to calculate the dust neclation and destruction in gaseous sys
 
 ***All Units are in CGS***
 
-### To Build & Run
+# Installation
+## Dependancies
 **Required:** OpenMP, MPI, Boost, SunDials, Plog.
 This build uses cmake. 
 
@@ -29,8 +30,19 @@ Further documentation and installation of Boost can be found at:
 
 https://www.boost.org/
 
-# Building nuDustC++
-In order to build nuDustC++, go to the head of the git repository (nudustc/) and run:
+### Sundials
+On MacOS using HomeBrew, run:
+
+```
+brew install sundials
+```
+
+Installation instructions for sundials can be found at: 
+
+https://computing.llnl.gov/projects/sundials/faq#inst
+
+## Building nuDustC++
+In order to build nuDustC++, go to the head of the git repository (nuDustC/) and run:
 
 ```
 $> mkdir build;
@@ -61,6 +73,8 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:~/miniconda3/lib ./nudust++ -c data/inputs/te
 ```
 
 Or specifying the paths to the packages and libraries in *LD_LIBRARY_PATH*.
+
+The default had OpenMP (NUDUSTC_ENABLE_OPENMP) turned on and MPI (NUDUSTC_ENABLE_MPI) and sundials (NUDUSTC_USE_SUNDIALS) are turned off. This can be edited in the CMakeLists.txt file. 
 
 ### Inputs
 Required: Config file. This lists the various input information such as data files, integration parameters, and calculation options.
@@ -105,9 +119,9 @@ Required: Config file. This lists the various input information such as data fil
 If both are set to '1', both destruction and nucleation are calculated. 
 
 ### Data Output Controls
-*io_disk_n_steps* : Number of cycles until a dump file is updated.  
+*io_dump_n_steps* : Number of cycles until a dump file is updated.  
 
-*io_screen_n_steps*: Number of cycles until a restart file is updated. 
+*io_restart_n_steps*: Number of cycles until a restart file is updated. 
 
 ### User Specified Shock Parameters
 *pile_up_factor*: This is used to calculate the increase in density when a shock passes through. The density if multiplied by this number. 
@@ -155,7 +169,7 @@ To run a test of nudustc++,
 ./nudustc++ -c data/inputs/test_config.ini
 ```
 
-This will produce data files in the build directory's "output/" directory and restart data in the "restart/" directory.
+nuDustC++ should complete the test run in under a minute in release mode. If it doesn't, try changing the configuration file to output data after more cycles by changing *io_dump_n_steps* and *io_restart_n_steps*. This will produce data files in the build directory's "output/" directory and restart data in the "restart/" directory.
 
 # Restarting a Run
 nuDustC++ automatically checks for restart files when creating each cell. If a restart file is found, that data is loaded into the cell object. If no restart file is found, the cell is initialized with data from the input files. Make sure the same config file used to start the run is selected when restarting. 
