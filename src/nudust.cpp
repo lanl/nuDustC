@@ -32,6 +32,7 @@ namespace options = boost::program_options;
 
 nuDust::nuDust ( const std::string &config_file, int sz, int rk) : par_size(sz), par_rank(rk), sputter("data/sputterDict.json")
 {
+    PLOGI << "par_size: " << par_size << ", par_rank: " << par_rank;
     nu_config.read_config ( config_file );
     // these are always called
     load_network();
@@ -628,6 +629,7 @@ nuDust::create_restart_cells(int cell_id)
 }
 
 // creates the simulation cells. this checks if there is an output file or restart file. If there are no restart or output file, create cell. If there's a restart file, load that data instead. If there's an output file and no restart, assume that cell has completed integration.
+/*
 void
 nuDust::create_simulation_cells()
 {
@@ -644,6 +646,60 @@ nuDust::create_simulation_cells()
     }
     PLOGI << "Created " << cell_inputs.size() << " cells";
 }
+//*/
+///*
+void
+nuDust::create_simulation_cells()
+{
+  PLOGI << "Creating cells with input data";
+
+  // distribute the cells
+  int cells_per_rank = cell_inputs.size() / par_size; // calculates how many cells each rank (process) should handle
+  int cell_rank_start_idx = par_rank * cells_per_rank; //calculates the starting index of the cells for the current rank, formerly known as 'cell_rank_disp'
+
+  int cell_end = (cell_rank_start_idx + cells_per_rank) < cell_inputs.size() ? cell_rank_start_idx + cells_per_rank : cell_inputs.size(); // This calculates the end index of the cells for the current rank, ensuring it doesn't exceed the total number of cells
+
+  //cell_end = cell_rank_start_idx + 10; // This is potentially problematic because it may exceed the actual number of cells available
+  // potential fix for the above line 
+  cell_end = std::min(cell_rank_start_idx + 10, static_cast<int>(cell_inputs.size()));
+
+  cells.reserve(cell_end - cell_rank_start_idx); // Reserves enough space in the cells vector to hold the cells assigned to this rank
+//  for (const auto& ic: cell_inputs) {
+//    cells_buf.emplace_back(&net, &nu_config, ic.first, initial_elements, ic.second);
+//  }
+
+  // Moves the iterator it to the starting index for the current rank
+  auto it = cell_inputs.begin();
+  for(auto r = 0; r < cell_rank_start_idx; r++)
+  {
+    it++;
+  }
+  //for(auto i = cell_rank_start_idx; i < cell_end; ++i)
+  for(auto i = cell_rank_start_idx; i < cell_end && it != cell_inputs.end(); ++i)
+  {
+        if (not std::filesystem::exists(name+std::to_string ( it->first ) + ".dat"))
+        {
+            if ( not std::filesystem::exists(nameRS+std::to_string ( it->first ) + ".dat"))
+            {
+                auto cid = it->first;
+                cells.emplace_back ( &net, &sputARR, &nu_config, it->first, initial_elements, cell_inputs[cid] );
+            }
+            else
+            {
+                create_restart_cells(it->first);
+            }
+        }
+        it++;
+  }
+
+  PLOGI << "rank " << par_rank << " has " << cells.size() << " cells\n";
+
+  // sarah added this b.s.
+  std::vector<int> cells_per_process(cell_inputs.size() / par_size);
+
+
+}
+//*/
 
 // begin calculations
 void
@@ -669,13 +725,14 @@ nuDust::run()
         std::cout << "! Try again\n";
     }
 
-    // cells.size()
-    #pragma omp parallel num_threads(3)
+    #pragma omp parallel num_threads(2)
     {
         #pragma omp for nowait
         for (auto i = 0; i < cells.size(); ++i)
         {
+            PLOGI << "running cell: " << cells[i].cid;
             cells[i].solve(); 
+            PLOGI << "finished cell: " << cells[i].cid;
         }
     }
 

@@ -16,7 +16,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 endif()
 
 option(NUDUSTC_ENABLE_OPENMP ON "Use OpenMP for cell/particle parallelization")
-option(NUDUSTC_ENABLE_MPI OFF "Use MPI for cell/particle parallelizaiton")
+option(NUDUSTC_ENABLE_MPI ON "Use MPI for cell/particle parallelization")
 option(NUDUSTC_USE_SUNDIALS OFF "Use sundials CVODE integrator")
 
 # dependencies
@@ -29,10 +29,6 @@ endif()
 
 if(NUDUSTC_ENABLE_OPENMP)
   find_package(OpenMP REQUIRED)
-endif()
-
-if(NUDUSTC_ENABLE_MPI)
-  find_package(MPI REQUIRED CXX)
 endif()
 
 include(FetchContent)
@@ -82,6 +78,14 @@ target_include_directories(${NUD_EXE} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 set(with_mpi "$<BOOL:${NUDUSTC_ENABLE_MPI}>")
 set(with_openmp "$<BOOL:${NUDUSTC_ENABLE_OPENMP}>")
 set(use_sundials "$<BOOL:${NUDUSTC_USE_SUNDIALS}>")
+set(MPI_ROOT "/usr/local/bin/mpicxx")
+
+if(NUDUSTC_ENABLE_MPI)
+  find_package(MPI REQUIRED CXX)
+  include_directories(${MPI_CXX_INCLUDE_DIRS})
+  target_link_libraries(${NUD_EXE} PRIVATE ${MPI_CXX_LIBRARIES})
+  target_link_libraries(${NUD_EXE} PUBLIC MPI::MPI_CXX)
+endif()
 
 target_link_libraries(
   ${NUD_EXE}

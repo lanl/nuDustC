@@ -18,9 +18,13 @@ perform publicly and display publicly, and to permit. others to do so.*/
 #include <plog/Log.h>
 #include <string>
 #include <vector>
-#ifdef NUDUSTC_ENABLE_MPI
+//#ifdef NUDUSTC_ENABLE_MPI
 #include <mpi.h>
-#endif
+//#endif
+
+//#ifdef NUDUSTC_ENABLE_OPENMP
+//#include <omp.h>
+//#endif
 
 // TODO: (maybe) this should be it's own module...not a lot done tho
 #include <boost/program_options.hpp>
@@ -53,17 +57,31 @@ and chemistry.
 
 int main(int argc, char *argv[]) {
   int rank = 0, size = 1;
-#ifdef NUDUSTC_ENABLE_MPI
-  PLOGI << "we're using MPI";
+
+  std::cout << "Before MPI_Init" << std::endl;
+//#ifdef NUDUSTC_ENABLE_MPI
   MPI_Init(&argc, &argv);
 
-  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-  MPI_Comm_size(MPI_COMM_WORLD, &size);
-#endif
+  int mpi_initialized = MPI_Init(&argc, &argv);
+  if (mpi_initialized != MPI_SUCCESS) {
+      std::cerr << "MPI initialization failed!" << std::endl;
+      return -1;
+  }
+  std::cout << "After MPI_Init" << std::endl;
 
-#ifdef NUDUSTC_ENABLE_OPENMP
-  PLOGI << "we're using openMP";
-#endif
+  int rank_result = MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  int size_result = MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+  if (rank_result != MPI_SUCCESS) {
+      std::cerr << "MPI_Comm_rank failed!" << std::endl;
+  }
+  if (size_result != MPI_SUCCESS) {
+      std::cerr << "MPI_Comm_size failed!" << std::endl;
+  }
+
+  std::cout << "rank: " << rank << std::endl;
+  std::cout << "size: " << size << std::endl;
+//#endif
   namespace po = boost::program_options;
 
   // setup command-line options
@@ -98,16 +116,17 @@ int main(int argc, char *argv[]) {
   std ::cout << "\n";
   std ::cout << "! log file = " << log_filename << "\n";
   std ::cout << "! configuration file = " << config_filename << "\n";
-  std ::cout << "starting ...\n";
+  
 
   if (rank == 0) {
-    banner();
+    //banner();
 
-    std ::cout << "\n";
-    std ::cout << "! log file = " << log_filename << "\n";
-    std ::cout << "! configuration file = " << config_filename << "\n";
+    //std ::cout << "\n";
+    //std ::cout << "! log file = " << log_filename << "\n";
+    //std ::cout << "! configuration file = " << config_filename << "\n";
     std ::cout << "! pe = " << size << "\n";
   }
+  std ::cout << "! starting ...\n";
 #ifdef NUDUSTC_ENABLE_MPI
   MPI_Barrier(MPI_COMM_WORLD);
 #endif
@@ -116,10 +135,16 @@ int main(int argc, char *argv[]) {
   plog::init<DetailLog_Root>(plog::info, &rootAppender);
   plog::init<DetailLog_Rank>(plog::info, &rankAppender);
 
-  std::cout << "! nuDust has started.\n";
+  //SCLOG_0(rank) << "nuDust has started";
+  //SCLOG_A(rank) << "starting ...\n";
+  std ::cout << "! rank: " << rank << "\n";
+  std ::cout << "! size: " << size << "\n";
+  std::cout << "! nuDust has started\n";
+
   PLOGI << "nuDust has started";
+
   nuDust nd(config_filename, size, rank);
-  std::cout << "! defined cells\n";
+  std::cout << "! Setup has completed. Starting runs...\n";
   nd.run();
   std::cout << "! nuDust has finished!\n";
 
