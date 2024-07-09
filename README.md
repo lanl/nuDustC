@@ -79,10 +79,10 @@ The default had OpenMP (NUDUSTC_ENABLE_OPENMP) turned on and MPI (NUDUSTC_ENABLE
 If using MPI, run with
 
 ```
-$> mpirun -N <n> ./nudust++ -c /data/inputs/test_config.txt
+$> mpirun -N 'n' ./nudust++ -c /data/inputs/test_config.txt
 ```
 
-where <n> is the number of processors.
+where 'n' is the number of processors.
 
 ### Inputs
 Required: Config file. This lists the various input information such as data files, integration parameters, and calculation options.
