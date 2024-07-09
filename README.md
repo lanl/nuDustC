@@ -76,6 +76,14 @@ Or specifying the paths to the packages and libraries in *LD_LIBRARY_PATH*.
 
 The default had OpenMP (NUDUSTC_ENABLE_OPENMP) turned on and MPI (NUDUSTC_ENABLE_MPI) and sundials (NUDUSTC_USE_SUNDIALS) are turned off. This can be edited in the CMakeLists.txt file. 
 
+If using MPI, run with
+
+```
+$> mpirun -N <n> ./nudust++ -c /data/inputs/test_config.txt
+```
+
+where <n> is the number of processors.
+
 ### Inputs
 Required: Config file. This lists the various input information such as data files, integration parameters, and calculation options.
 
@@ -176,6 +184,8 @@ nuDustC++ automatically checks for restart files when creating each cell. If a r
 
 # Common Pitfalls
 If the compiler cannot find required packages or libraries, make sure LD_LIBRARY_PATH is up to date and points to the location of each package or library.
+
+MPI issuse: make sure you have the installed location of MPI in your path. You might need to change CMakeLists.txt depending on your MPI build.
 
 Ensure the configuration file points to the accessible location of each input file and contains the necessary parameters for the calculation path. 
 
