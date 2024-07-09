@@ -78,13 +78,14 @@ target_include_directories(${NUD_EXE} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 set(with_mpi "$<BOOL:${NUDUSTC_ENABLE_MPI}>")
 set(with_openmp "$<BOOL:${NUDUSTC_ENABLE_OPENMP}>")
 set(use_sundials "$<BOOL:${NUDUSTC_USE_SUNDIALS}>")
-set(MPI_ROOT "/usr/local/bin/mpicxx")
+
 
 if(NUDUSTC_ENABLE_MPI)
   find_package(MPI REQUIRED CXX)
   include_directories(${MPI_CXX_INCLUDE_DIRS})
   target_link_libraries(${NUD_EXE} PRIVATE ${MPI_CXX_LIBRARIES})
-  target_link_libraries(${NUD_EXE} PUBLIC MPI::MPI_CXX)
+  #target_link_libraries(${NUD_EXE} PUBLIC MPI::MPI_CXX)
+  message("MPI Found")
 endif()
 
 target_link_libraries(
@@ -95,7 +96,7 @@ target_link_libraries(
           Boost::filesystem
           plog::plog
           $<${use_sundials}:"SUNDIALS::cvode;SUNDIALS::nvecserial">
-          $<${with_mpi}:"MPI::MPI_CXX">
+          #$<${with_mpi}:"MPI::MPI_CXX">
           $<${with_openmp}:"OpenMP::OpenMP_CXX">)
 
 target_compile_definitions(
