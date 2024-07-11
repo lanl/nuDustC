@@ -96,7 +96,7 @@ target_link_libraries(
           Boost::filesystem
           plog::plog
           $<${use_sundials}:"SUNDIALS::cvode;SUNDIALS::nvecserial">
-          $<${with_mpi}:"MPI::MPI_CXX">
+          #$<${with_mpi}:"MPI::MPI_CXX">
           $<${with_openmp}:"OpenMP::OpenMP_CXX">)
 
 target_compile_definitions(
