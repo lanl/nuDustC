@@ -57,12 +57,12 @@ and chemistry.
 
 int main(int argc, char *argv[]) {
   int rank = 0, size = 1;
-//#ifdef NUDUSTC_ENABLE_MPI
+#ifdef NUDUSTC_ENABLE_MPI
   MPI_Init(&argc, &argv);
 
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
-//#endif
+#endif
   namespace po = boost::program_options;
 
   // setup command-line options

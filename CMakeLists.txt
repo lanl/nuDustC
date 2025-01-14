@@ -39,7 +39,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(plog)
 
-option(NUDUST_BENCHMARK "Enable benchmark wrappers" OFF)
+option(NUDUSTC_BENCHMARK "Enable benchmark wrappers" OFF)
 
 set(NUD_EXE "nudustc++")
 
@@ -81,6 +81,7 @@ set(use_sundials "$<BOOL:${NUDUSTC_USE_SUNDIALS}>")
 
 
 if(NUDUSTC_ENABLE_MPI)
+  message("Looking for MPI")
   find_package(MPI REQUIRED CXX)
   include_directories(${MPI_CXX_INCLUDE_DIRS})
   target_link_libraries(${NUD_EXE} PRIVATE ${MPI_CXX_LIBRARIES})
@@ -101,8 +102,8 @@ target_link_libraries(
 
 target_compile_definitions(
   ${NUD_EXE}
-  PRIVATE $<$<BOOL:${NUDUST_BENCHMARK}>:ENABLE_BENCHMARK>
-          $<$<BOOL:${NUDUST_ENABLE_MPI}>:NUDUSTC_ENABLE_MPI>
+  PRIVATE $<$<BOOL:${NUDUSTC_BENCHMARK}>:ENABLE_BENCHMARK>
+          $<$<BOOL:${NUDUSTC_ENABLE_MPI}>:NUDUSTC_ENABLE_MPI>
           # latest boost fails with gcc@12
           # https://github.com/boostorg/phoenix/issues/111
           BOOST_PHOENIX_STL_TUPLE_H_)
