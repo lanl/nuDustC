@@ -15,8 +15,8 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   )
 endif()
 
-option(NUDUSTC_ENABLE_OPENMP ON "Use OpenMP for cell/particle parallelization")
-option(NUDUSTC_ENABLE_MPI ON "Use MPI for cell/particle parallelization")
+option(NUDUSTC_ENABLE_OPENMP OFF "Use OpenMP for cell/particle parallelization")
+option(NUDUSTC_ENABLE_MPI OFF "Use MPI for cell/particle parallelization")
 option(NUDUSTC_USE_SUNDIALS OFF "Use sundials CVODE integrator")
 
 # dependencies
@@ -89,6 +89,10 @@ if(NUDUSTC_ENABLE_MPI)
   message("MPI Found")
 endif()
 
+if(NUDUSTC_USE_SUNDIALS)
+  target_link_libraries(${NUD_EXE} PRIVATE SUNDIALS::cvode SUNDIALS::nvecserial)
+endif()
+
 target_link_libraries(
   ${NUD_EXE}
   PRIVATE Boost::headers
@@ -96,9 +100,8 @@ target_link_libraries(
           Boost::serialization
           Boost::filesystem
           plog::plog
-          $<${use_sundials}:"SUNDIALS::cvode;SUNDIALS::nvecserial">
           $<${with_mpi}:MPI::MPI_CXX>
-          $<${with_openmp}:"OpenMP::OpenMP_CXX">)
+          $<${with_openmp}:OpenMP::OpenMP_CXX>)
 
 target_compile_definitions(
   ${NUD_EXE}

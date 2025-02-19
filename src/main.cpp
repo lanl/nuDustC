@@ -18,13 +18,13 @@ perform publicly and display publicly, and to permit. others to do so.*/
 #include <plog/Log.h>
 #include <string>
 #include <vector>
-//#ifdef NUDUSTC_ENABLE_MPI
+#ifdef NUDUSTC_ENABLE_MPI
 #include <mpi.h>
-//#endif
+#endif
 
-//#ifdef NUDUSTC_ENABLE_OPENMP
-//#include <omp.h>
-//#endif
+#ifdef NUDUSTC_ENABLE_OPENMP
+#include <omp.h>
+#endif
 
 // TODO: (maybe) this should be it's own module...not a lot done tho
 #include <boost/program_options.hpp>
