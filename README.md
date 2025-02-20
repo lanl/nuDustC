@@ -79,7 +79,7 @@ The default had OpenMP (NUDUSTC_ENABLE_OPENMP) and MPI (NUDUSTC_ENABLE_MPI) aret
 If using MPI, run with
 
 ```
-$> mpirun -N 'n' ./nudust++ -c /data/inputs/test_config.txt
+$> mpirun -N 'n' ./nudustc++ -c /data/inputs/test_config.txt
 ```
 
 where 'n' is the number of processors.

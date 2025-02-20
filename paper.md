@@ -73,6 +73,6 @@ the Figure below shows a comparison between the python <span style="font-family:
 
 # Acknowledgements
 
-This work was supported by the U.S. Department of Energy through the Los Alamos National Laboratory (LANL). LANL is operated by Triad National Seurity, LLC, for the National Nuclear Security Administration of U.S. Department of Energy (Contract No. 89233218CNA000001). This research used resources provided by the Darwin testbed at LANL which is funded by the Computational Systems and Software Environments subprogram of LANL’s Advanced Simulation and Computing program (NNSA/DOE). This work is approved for unlimited release with report number LA-UR-24-20630.
+This work was supported by the U.S. Department of Energy through the Los Alamos National Laboratory (LANL). LANL is operated by Triad National Seurity, LLC, for the National Nuclear Security Administration of U.S. Department of Energy (Contract No. 89233218CNA000001). This research used resources provided by the Darwin testbed at LANL which is funded by the Computational Systems and Software Environments subprogram of LANL’s Advanced Simulation and Computing program (NNSA/DOE). Work supported by the Laboratory Directed Research and Development program of Los Alamos National Laboratory, under project number  20240039DR. This work is approved for unlimited release with report number LA-UR-24-20630.
 
 # References
