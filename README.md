@@ -63,13 +63,13 @@ $> make;
 Run nuDustc with
 
 ```
-$> ./nudust++ -c data/inputs/test_config.ini
+$> ./nudustc++ -c data/inputs/test_config.ini
 ```
 
 You may need to add the paths of the packages to *LD_LIBRARY_PATH*. If using conda nuDustC++ can then be run by:
 
 ```
-LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:~/miniconda3/lib ./nudust++ -c data/inputs/test_config.ini
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:~/miniconda3/lib ./nudustc++ -c data/inputs/test_config.ini
 ```
 
 Or specifying the paths to the packages and libraries in *LD_LIBRARY_PATH*.
