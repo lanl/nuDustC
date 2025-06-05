@@ -1,5 +1,5 @@
 ---
-title: '<span style="font-family:qcr;">nudustc++</span>: C++ Code for Modeling Dust Nucleation and Destruction in Gaseous Sysytems'
+title: '<span style="font-family:qcr;">nudustc++</span>: C++ Code for Modeling Dust Nucleation and Destruction in Gaseous Systems'
 tags:
   - astronomy
   - nucleation
@@ -34,13 +34,13 @@ bibliography: paper.bib
 
 # Summary
 
-We introduce <span style="font-family:qcr;">nudustc++</span>, a **nu**cleating **dust** code in **C++** modeling dust grain formation, growth, and erosion in gaseous systems. <span style="font-family:qcr;">nudustc++</span> is a highly parallizable set of code and tools for solving a system of nonlinear ordinary differential equations describing dust nucleation, growth, and erosion for user-specified grain species. It leverages OpenMP and MPI to optimize threading and distribution on available CPUS.
+We introduce <span style="font-family:qcr;">nudustc++</span>, a **nu**cleating **dust** code in **C++** modeling dust grain formation, growth, and erosion in gaseous systems. <span style="font-family:qcr;">nudustc++</span> is a highly parallelizable set of code and tools for solving a system of nonlinear ordinary differential equations describing dust nucleation, growth, and erosion for user-specified grain species. It leverages OpenMP and MPI to optimize threading and distribution on available CPUs.
 
 # Statement of need
 
 Understanding interstellar dust is crucial for astronomical observations [@Draine2003], offering key insights into stellar processes. These grains absorb electromagnetic radiation, re-emitting it at longer wavelengths, leading to extinction and a spectral shift towards redder wavelengths. The size and composition of dust introduces variability in opacities and distortion of incident light, resulting in molecular lines and altering the resulting data. Dust formed in asymptotic giant branch (AGB) stars, on pre-existing grains in the interstellar medium (ISM), and within the expanding, cooling ejecta of core collapse supernovae explosions (CCSNe); these grains preserve important information about the nucleosynthetic processes within their host environment, locking up their unique isotopic signatures. However, despite their importance, the quantity, composition, and size distribution of dust formed in supernovae and deposited into the ISM remain poorly constrained. 
 
-Models of formation, growth, and weathering of dust are necessary to understand the origin and characteristics of dust in the interstellar medium, shedding light on where and what dust are possible in these environments. Specifically, modelling the formation and survivalability of dust in CCSNe produce a population of dust grains that can be compared with observations, allowing verification of our current understanding of physical models: ISM dust origin, chemical networks, nucleation models, hydrodynamics, supernovae engines, progenitor structure, erosion physics, and stellar compositions. 
+Models of formation, growth, and weathering of dust are necessary to understand the origin and characteristics of dust in the interstellar medium, shedding light on where and what dust are possible in these environments. Specifically, modelling the formation and survivability of dust in CCSNe produce a population of dust grains that can be compared with observations, allowing verification of our current understanding of physical models: ISM dust origin, chemical networks, nucleation models, hydrodynamics, supernovae engines, progenitor structure, erosion physics, and stellar compositions. 
 
 This project originated from the need to track dust nucleation and destruction in Core-Collapse Supernovae Explosions. It addresses the lack of sub-grid physics associated with phase transitions, where hydrodynamical code's timesteps are an order of magnitude larger than those needed to capture gas vapor physics. A smaller more refined grid with chemical networks and smaller timesteps is needed. The code is structured to intake any hydro-dynamical temperature-density trajectory with vapor compositions. This allows <span style="font-family:qcr;">nudustc++</span> to track dust in a large range of environments: planetary atmospheres, nebulae, hydro-aerosoal formation, explosions, etc. Additionally, if a time series hydro-dynamical profile is unavailable but a dust size distribution and a profile snapshot is, <span style="font-family:qcr;">nudustc++</span> can calculate the evolution and survivability of the dust. The applications of <span style="font-family:qcr;">nudustc++</span> extend beyond Supernovae and Astronomy to include any model with thermodynamic and statistical physics. 
 
@@ -60,7 +60,7 @@ Other publicly available dust codes include <span style="font-family:qcr;">sndus
 
 Because of the post processing nature of <span style="font-family:qcr;">nudustc++</span>, modeling grain nucleation and destruction is possible in a large range of physical environments. The user provides the hydrodynamical trajectory file and vapor compositions which can describe Supernovae explosions to planetary atmospheres to interstellar gas clouds and any temperature-density profile extended beyond astrophysics. 
 
-Because <span style="font-family:qcr;">nudustc++</span> is a post processing code where data is read in separately for each cell with not data flow between cells, there is no shared memory and each cell can be computed independently. This results in an embarrassingly parallel process, allowing for simultaneous computation of each cell and thereby reducing runtime. 
+Because <span style="font-family:qcr;">nudustc++</span> is a post processing code where data is read in separately for each cell with no data flow between cells, there is no shared memory and each cell can be computed independently. This results in an embarrassingly parallel process, allowing for simultaneous computation of each cell and thereby reducing runtime. 
 
 # Performance
 
@@ -73,6 +73,6 @@ The Figure below shows a comparison between the python <span style="font-family:
 
 # Acknowledgements
 
-This work was supported by the U.S. Department of Energy through the Los Alamos National Laboratory (LANL). LANL is operated by Triad National Seurity, LLC, for the National Nuclear Security Administration of U.S. Department of Energy (Contract No. 89233218CNA000001). This research used resources provided by the Darwin testbed at LANL which is funded by the Computational Systems and Software Environments subprogram of LANL’s Advanced Simulation and Computing program (NNSA/DOE). Work supported by the Laboratory Directed Research and Development program of Los Alamos National Laboratory, under project number  20240039DR. This work is approved for unlimited release with report number LA-UR-24-20630.
+This work was supported by the U.S. Department of Energy through the Los Alamos National Laboratory (LANL). LANL is operated by Triad National Security, LLC, for the National Nuclear Security Administration of U.S. Department of Energy (Contract No. 89233218CNA000001). This research used resources provided by the Darwin testbed at LANL which is funded by the Computational Systems and Software Environments subprogram of LANL’s Advanced Simulation and Computing program (NNSA/DOE). Work supported by the Laboratory Directed Research and Development program of Los Alamos National Laboratory, under project number  20240039DR. This work is approved for unlimited release with report number LA-UR-24-20630.
 
 # References
