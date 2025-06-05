@@ -3,17 +3,17 @@
 # nuDustC
 Nucleating Dust Code in C++
 
-nuDustC++ is used to calculate the dust neclation and destruction in gaseous systems. 
+nuDustC++ is used to calculate the dust nucleation and destruction in gaseous systems. 
 
 ***All Units are in CGS***
 
 # Installation
-## Dependancies
+## Dependencies
 **Required:** OpenMP, MPI, Boost, SunDials, Plog.
 This build uses cmake. 
 
 ### Plog 
-Plog is a header only package. Running cmake fetches Plog, but it can also be aquired by:
+Plog is a header only package. Running cmake fetches Plog, but it can also be acquired by:
 
 ```
 git clone git@github.com:SergiusTheBest/plog.git
@@ -74,7 +74,7 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:~/miniconda3/lib ./nudustc++ -c data/inputs/t
 
 Or specifying the paths to the packages and libraries in *LD_LIBRARY_PATH*.
 
-The default had OpenMP (NUDUSTC_ENABLE_OPENMP) and MPI (NUDUSTC_ENABLE_MPI) areturned on and sundials (NUDUSTC_USE_SUNDIALS) are turned off. This can be edited in the CMakeLists.txt file. 
+The default had OpenMP (NUDUSTC_ENABLE_OPENMP) and MPI (NUDUSTC_ENABLE_MPI) are turned on and sundials (NUDUSTC_USE_SUNDIALS) are turned off. This can be edited in the CMakeLists.txt file. 
 
 If using MPI, run with
 
@@ -102,9 +102,9 @@ Required: Config file. This lists the various input information such as data fil
 
     
 ### Data Files
-*sizeDist_file*: This describes the size distribution for the model. Each cell has one line. Each line is an array of size distribtuions of grain species in the order specified in the header line.
+*sizeDist_file*: This describes the size distribution for the model. Each cell has one line. Each line is an array of size distributions of grain species in the order specified in the header line.
 
-*environment_file*: This contains the trajectory data for each timestep. The time is specified on a single line. Below, each cell's is describe in a single line: cell_ID, temperature (K), volume(cm^3), density(g/cm^3), pressure (Ba), velocity (cm/s), radius (cm).
+*environment_file*: This contains the trajectory data for each timestep. The time is specified on a single line. Below, each cell's is described in a single line: cell_ID, temperature (K), volume(cm^3), density(g/cm^3), pressure (Ba), velocity (cm/s), radius (cm).
 
 *network_file*: This includes the chemical network of grain reactions. Each grain species takes up one line in order: reactants, "->", products, "|", key species, Gibb's free energy 'A' term (A/10^4 K), Gibb's free energy 'B' term, surface energy of the condensate (ergs/cm^2), radius of condensate (angstroms). 
 
@@ -113,16 +113,16 @@ Required: Config file. This lists the various input information such as data fil
 *shock_file*: This contains information on a shock. Each cell has one line: cell ID, the time of the shock, the shock temperature, the shock velocity.
 
 ### Size Distribution Parameters
-*size_dist_min_rad_exponent_cm*: The exponent of the left edge of the distribtuion.
+*size_dist_min_rad_exponent_cm*: The exponent of the left edge of the distribution.
 
-*size_dist_max_rad_exponent_cm*: The exponent of the right edge of the distribtion.
+*size_dist_max_rad_exponent_cm*: The exponent of the right edge of the distribution.
 
 *number_of_size_bins*: The number of size bins.
     
 ### Control Nucleation and Destruction
 *do_destruction*: 1, if doing destruction, 0 if no destruction.
 
-*do_nucleation*: 1, if soind nucleation, 0 if no nucleation.
+*do_nucleation*: 1, if doing nucleation, 0 if no nucleation.
 
 If both are set to '1', both destruction and nucleation are calculated. 
 
@@ -162,7 +162,7 @@ Destruction With User Input Shock Temperature & Velocity
   Required Input Files: Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution File or Size Parameters, Abundance File, & Network File
 
 # Selecting Integrators and Interpolators
-The integrator is setup in *src/cell.cpp* in the *solve()* funtion. nuDustC++ comes defaulted with a runge-kutta doPri 5 integrator. Additional information on the available integrators offered by Boost can be found at:
+The integrator is setup in *src/cell.cpp* in the *solve()* function. nuDustC++ comes defaulted with a runge-kutta doPri 5 integrator. Additional information on the available integrators offered by Boost can be found at:
 
 https://www.boost.org/doc/libs/1_78_0/libs/numeric/odeint/doc/html/index.html
 
@@ -185,7 +185,7 @@ nuDustC++ automatically checks for restart files when creating each cell. If a r
 # Common Pitfalls
 If the compiler cannot find required packages or libraries, make sure LD_LIBRARY_PATH is up to date and points to the location of each package or library.
 
-MPI issuse: make sure you have the installed location of MPI in your path. You might need to change CMakeLists.txt depending on your MPI build.
+MPI issues: make sure you have the installed location of MPI in your path. You might need to change CMakeLists.txt depending on your MPI build.
 
 Ensure the configuration file points to the accessible location of each input file and contains the necessary parameters for the calculation path. 
 
