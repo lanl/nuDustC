@@ -64,7 +64,7 @@ Because <span style="font-family:qcr;">nudustc++</span> is a post processing cod
 
 # Performance
 
-The Figure below shows a comparison between the python <span style="font-family:qcr;">snDust</span> using an implicit integrator versus <span style="font-family:qcr;">nudustc++</span> using an explicit integrator. At shorter solution lengths, the implicit integrator has a lot of overhead leading to an increased run time despite the shorter length. The explicit integrator in <span style="font-family:qcr;">C++</span> out performs the implicit integrator even at longer solution length. Overall, <span style="font-family:qcr;">nudustc++</span> outperforms the python version. It is also embarrassingly parallel. Utilizing OpenMP and MPI, the user can run many cells in parallel. 
+The Figure below shows a comparison between the python <span style="font-family:qcr;">sndust</span> using an implicit integrator versus <span style="font-family:qcr;">nudustc++</span> using an explicit integrator. At shorter solution lengths, the implicit integrator has a lot of overhead leading to an increased run time despite the shorter length. The explicit integrator in <span style="font-family:qcr;">C++</span> out performs the implicit integrator even at longer solution length. Overall, <span style="font-family:qcr;">nudustc++</span> outperforms the python version. It is also embarrassingly parallel. Utilizing OpenMP and MPI, the user can run many cells in parallel. 
 
 # Figures
 
