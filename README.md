@@ -74,7 +74,7 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:~/miniconda3/lib ./nudustc++ -c data/inputs/t
 
 Or specifying the paths to the packages and libraries in *LD_LIBRARY_PATH*.
 
-The default had OpenMP (NUDUSTC_ENABLE_OPENMP) and MPI (NUDUSTC_ENABLE_MPI) are turned on and sundials (NUDUSTC_USE_SUNDIALS) are turned off. This can be edited in the CMakeLists.txt file. 
+OpenMP (NUDUSTC_ENABLE_OPENMP), MPI (NUDUSTC_ENABLE_MPI), and sundials (NUDUSTC_USE_SUNDIALS) are turned off. This can be edited in the CMakeLists.txt file. 
 
 If using MPI, run with
 
@@ -87,7 +87,7 @@ where 'n' is the number of processors.
 ### Inputs
 Required: Config file. This lists the various input information such as data files, integration parameters, and calculation options.
 
-# Configuration file
+# Configuration File
 
 ### Integration Parameters
 *ode_dt_0*: Initial timestep for integration.
@@ -102,13 +102,13 @@ Required: Config file. This lists the various input information such as data fil
 
     
 ### Data Files
-*sizeDist_file*: This describes the size distribution for the model. Each cell has one line. Each line is an array of size distributions of grain species in the order specified in the header line.
+*sizeDist_file*: This describes the size distribution for the model. Each cell is described in one line. Each line is an array of size distributions of grain species in the order specified in the header line.
 
-*environment_file*: This contains the trajectory data for each timestep. The time is specified on a single line. Below, each cell's is described in a single line: cell_ID, temperature (K), volume(cm^3), density(g/cm^3), pressure (Ba), velocity (cm/s), radius (cm).
+*environment_file*: This contains the trajectory data for each timestep. The time is specified on a single line. Below, each cell is described in a single line: cell_ID, temperature (K), volume(cm^3), density(g/cm^3), pressure (Ba), velocity (cm/s), radius (cm).
 
-*network_file*: This includes the chemical network of grain reactions. Each grain species takes up one line in order: reactants, "->", products, "|", key species, Gibb's free energy 'A' term (A/10^4 K), Gibb's free energy 'B' term, surface energy of the condensate (ergs/cm^2), radius of condensate (angstroms). 
+*network_file*: This includes the chemical network of grain reactions. Each grain species takes up one line in this order: reactants, "->", products, "|", key species, Gibb's free energy 'A' term (A/10^4 K), Gibb's free energy 'B' term, surface energy of the condensate (ergs/cm^2), radius of condensate (angstroms). 
 
-*abundance_file*: This lists the names of gas species in the header. Each cell has one line listing: cell ID, number density for each gas species. 
+*abundance_file*: This lists the names of gas species in the header. Each cell has one line listing: cell ID and number density for each gas species. 
 
 *shock_file*: This contains information on a shock. Each cell has one line: cell ID, the time of the shock, the shock temperature, the shock velocity.
 
@@ -132,7 +132,7 @@ If both are set to '1', both destruction and nucleation are calculated.
 *io_restart_n_steps*: Number of cycles until a restart file is updated. 
 
 ### User Specified Shock Parameters
-*pile_up_factor*: This is used to calculate the increase in density when a shock passes through. The density if multiplied by this number. 
+*pile_up_factor*: This is used to calculate the increase in density when a shock passes through. The density is multiplied by this number. 
 
 *shock_velo*: This is the velocity of the shock that will be applied to all cells. 
 
@@ -146,19 +146,19 @@ If both are set to '1', both destruction and nucleation are calculated.
 # Functionality
 There are 5 main calculation paths including destruction or nucleation calculations. Destruction has 2 main branches based on if the user is specifying shock values or reading them in from a file. 
 
-Nucleation & Destruction With User Input Shock Temperature & Velocity
+Nucleation & Destruction With User Input Shock Temperature & Velocity:
   Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density, Pressure, Velocity), Abundance File, & Network File, Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution File or Size Parameters
 
-Nucleation & Destruction With Shock Times and Velocities from a file
+Nucleation & Destruction With Shock Times and Velocities from a file:
   Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density, Pressure, Velocity), Abundance File, & Network File, Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution File or Size Parameters
 
-Nucleation
+Nucleation:
   Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density), Abundance File, & Network File, Size Distribution File or Size Parameters
 
-Destruction With Shock Times and Velocities from a file
+Destruction With Shock Times and Velocities from a file:
   Required Input Files: Shock File (Cell #, Time, Shock Temperature, Shock Velocity), Size Distribution File or Size Parameters, Abundance File, & Network File
 
-Destruction With User Input Shock Temperature & Velocity
+Destruction With User Input Shock Temperature & Velocity:
   Required Input Files: Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution File or Size Parameters, Abundance File, & Network File
 
 # Selecting Integrators and Interpolators
@@ -177,7 +177,7 @@ To run a test of nudustc++,
 ./nudustc++ -c data/inputs/test_config.ini
 ```
 
-nuDustC++ should complete the test run in under a minute in release mode. If it doesn't, try changing the configuration file to output data after more cycles by changing *io_dump_n_steps* and *io_restart_n_steps*. This will produce data files in the build directory's "output/" directory and restart data in the "restart/" directory.
+nuDustC++ should complete the test run in under a minute or two in release mode. If it doesn't, try changing the configuration file to output data after more cycles by changing *io_dump_n_steps* and *io_restart_n_steps*. This will produce data files in the build directory's "output/" directory and restart data in the "restart/" directory.
 
 # Restarting a Run
 nuDustC++ automatically checks for restart files when creating each cell. If a restart file is found, that data is loaded into the cell object. If no restart file is found, the cell is initialized with data from the input files. Make sure the same config file used to start the run is selected when restarting. 
@@ -189,7 +189,7 @@ MPI issues: make sure you have the installed location of MPI in your path. You m
 
 Ensure the configuration file points to the accessible location of each input file and contains the necessary parameters for the calculation path. 
 
-Boost Math errors: Some older versions of Boost might not work the Gauss Kronrod Quadrature. We haven't checked any builds older than 1.78.0. If you get math errors, try updating Boost. 
+Boost Math errors: Some older versions of Boost might not work with the Gauss Kronrod Quadrature. We haven't checked any builds older than 1.78.0. If you get math errors, try updating Boost. 
 
 # Community guidelines
 
