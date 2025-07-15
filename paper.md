@@ -34,7 +34,7 @@ bibliography: paper.bib
 
 # Summary
 
-We introduce <span style="font-family:qcr;">nudustc++</span>, a **nu**cleating **dust** code in **C++** modeling dust grain formation, growth, and erosion in gaseous systems. <span style="font-family:qcr;">nudustc++</span> is a highly parallelizable set of code and tools for solving a system of nonlinear ordinary differential equations describing dust nucleation, growth, and erosion for user-specified grain species. It leverages OpenMP and MPI to optimize threading and distribution on available CPUs.
+We introduce <span style="font-family:qcr;">nudustc++</span>, a **nu**cleating **dust** code in **C++** modeling dust grain formation, growth, and erosion in gaseous systems assuming Kinetic Nucleation Theory (KNT). <span style="font-family:qcr;">nudustc++</span> is a highly parallelizable set of code and tools for solving a system of nonlinear ordinary differential equations describing dust nucleation, growth, and erosion for user-specified grain species. It leverages OpenMP and MPI to optimize threading and distribution on available CPUs.
 
 # Statement of need
 
@@ -46,7 +46,7 @@ This project originated from the need to track dust nucleation and destruction i
 
 # State Of The Field
 
-In order to gain a deeper understanding of the origin and characteristics of dust in the interstellar medium, it is imperative to develop models that include the nucleation, chemistry, growth, and erosion of dust. Current methods of calculating dust formation and survival include Classical Nucleation Theory (CNT) and Kinetic Nucleation Theory (KNT).
+In order to gain a deeper understanding of the origin and characteristics of dust in the interstellar medium, it is imperative to develop models that include the nucleation, chemistry, growth, and erosion of dust. Current methods of calculating dust formation and survival include Classical Nucleation Theory (CNT) and KNT.
 
 CNT treats grain formation as a barrier crossing problem. As atoms stick to a cluster, the free energy increases. After reaching a critical size, the free energy decreases as atoms are added. It tracks the nucleation rate by assuming a steady state between monomer attachment and detachment. However, it neglects chemical reactions of formation, destruction, growth by coagulation, and treats the grains as bulk materials. Due to these simplified assumptions, CNT is widely used, but is increasingly less so due to these limitations.  @kozasa1987 and @Bianchi2007 used CNT to model dust grain formation in SN 1987A and SN 1987A-like Supernovae. @Todini2001 used CNT to calculate dust formation in Core Collapse Supernovae Explosions. More recently @paquette2023 used CNT to model dust formation in the outflows of AGB Stars. 
 
