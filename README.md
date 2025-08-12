@@ -97,7 +97,7 @@ Descriptions of the input configuration file structure and data files are below.
 
 # Configuration File
 
-### Integration Parameters
+### Integration Parameters 
 *ode_dt_0*: Initial timestep for integration.
 
 *ode_abs_err*: The Solver's absolute error.
@@ -107,6 +107,8 @@ Descriptions of the input configuration file structure and data files are below.
 *ode_dt_min*: The minimum allowed timestep.
 
 *de_dt_max*: The maximum allowed timestep.
+
+These determine the integrator's timesteps and allowed error. For a quick but less accurate run, increase the 'dt' and lower the '_err' parameters. Conversely, for a more time consuming but accurate run, lower 'dt' and '_err' parameters. The 'dt' is best determined by the timesteps used in the original hydrdynamical run of the trajectory data (described below as the *environment_file*).
 
     
 ### Data Files
@@ -119,6 +121,8 @@ Descriptions of the input configuration file structure and data files are below.
 *abundance_file*: This lists the names of gas species in the header. Each cell has one line listing: cell ID and number density for each gas species. 
 
 *shock_file*: This contains information on a shock. Each cell has one line: cell ID, the time of the shock, the shock temperature, the shock velocity.
+
+Examples of each file is provided in the 'data' directory. The example files are prefaced by 'test_'.
 
 ### Size Distribution Parameters
 *size_dist_min_rad_exponent_cm*: The exponent of the left edge of the distribution.
