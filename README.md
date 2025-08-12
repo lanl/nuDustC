@@ -13,7 +13,7 @@ nuDustC++ is used to calculate the dust nucleation and destruction in gaseous sy
 This build uses cmake. 
 
 ### Plog 
-Plog is a header only package. Running cmake fetches Plog, but it can also be acquired by:
+Plog is a header-only package. Running cmake fetches Plog, but it can also be acquired by:
 
 ```
 git clone git@github.com:SergiusTheBest/plog.git
@@ -42,7 +42,7 @@ Installation instructions for sundials can be found at:
 https://computing.llnl.gov/projects/sundials/faq#inst
 
 ## Building nuDustC++
-In order to build nuDustC++, go to the head of the git repository (nuDustC/) and run:
+To build nuDustC++, go to the head of the git repository (nuDustC/) and run:
 
 ```
 $> mkdir build;
@@ -104,9 +104,9 @@ Required: Config file. This lists the various input information such as data fil
 ### Data Files
 *sizeDist_file*: This describes the size distribution for the model. Each cell is described in one line. Each line is an array of size distributions of grain species in the order specified in the header line.
 
-*environment_file*: This contains the trajectory data for each timestep. The time is specified on a single line. Below, each cell is described in a single line: cell_ID, temperature (K), volume(cm^3), density(g/cm^3), pressure (Ba), velocity (cm/s), radius (cm).
+*environment_file*: This contains the trajectory data for each timestep. The time is specified on a single line. Below, each cell is described in a single line: cell_ID, temperature (K), volume (cm^3), density(g/cm^3), pressure (Ba), velocity (cm/s), radius (cm).
 
-*network_file*: This includes the chemical network of grain reactions. Each grain species takes up one line in this order: reactants, "->", products, "|", key species, Gibb's free energy 'A' term (A/10^4 K), Gibb's free energy 'B' term, surface energy of the condensate (ergs/cm^2), radius of condensate (angstroms). 
+*network_file*: This includes the chemical network of grain reactions. Each grain species takes up one line in this order: reactants, "->", products, "|", key species, Gibbs free energy 'A' term (A/10^4 K), Gibbs free energy 'B' term, surface energy of the condensate (ergs/cm^2), radius of condensate (angstroms). 
 
 *abundance_file*: This lists the names of gas species in the header. Each cell has one line listing: cell ID and number density for each gas species. 
 
@@ -120,9 +120,9 @@ Required: Config file. This lists the various input information such as data fil
 *number_of_size_bins*: The number of size bins.
     
 ### Control Nucleation and Destruction
-*do_destruction*: 1, if doing destruction, 0 if no destruction.
+*do_destruction*: Set to 1 to enable destruction, 0 to disable.
 
-*do_nucleation*: 1, if doing nucleation, 0 if no nucleation.
+*do_nucleation*: Set to 1 to enable nucleation, 0 to disable.
 
 If both are set to '1', both destruction and nucleation are calculated. 
 
@@ -147,26 +147,26 @@ If both are set to '1', both destruction and nucleation are calculated.
 There are 5 main calculation paths including destruction or nucleation calculations. Destruction has 2 main branches based on if the user is specifying shock values or reading them in from a file. 
 
 Nucleation & Destruction With User Input Shock Temperature & Velocity:
-  Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density, Pressure, Velocity), Abundance File, & Network File, Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution File or Size Parameters
+  Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density, Pressure, Velocity), Abundance file, & Network file, Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution File or Size Parameters
 
 Nucleation & Destruction With Shock Times and Velocities from a file:
-  Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density, Pressure, Velocity), Abundance File, & Network File, Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution File or Size Parameters
+  Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density, Pressure, Velocity), Abundance file, & Network file, Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution file or Size Parameters
 
 Nucleation:
-  Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density), Abundance File, & Network File, Size Distribution File or Size Parameters
+  Required Input Files: Hydrodynamical Trajectory file (Time, Temperature, Volumes, Density), Abundance file, & Network file, Size Distribution file or Size Parameters
 
 Destruction With Shock Times and Velocities from a file:
-  Required Input Files: Shock File (Cell #, Time, Shock Temperature, Shock Velocity), Size Distribution File or Size Parameters, Abundance File, & Network File
+  Required Input Files: Shock file (Cell #, Time, Shock Temperature, Shock Velocity), Size Distribution file or Size Parameters, Abundance file, & Network file
 
 Destruction With User Input Shock Temperature & Velocity:
-  Required Input Files: Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution File or Size Parameters, Abundance File, & Network File
+  Required Input Files: Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution file or Size Parameters, Abundance file, & Network file
 
 # Selecting Integrators and Interpolators
-The integrator is setup in *src/cell.cpp* in the *solve()* function. nuDustC++ comes defaulted with a runge-kutta doPri 5 integrator. Additional information on the available integrators offered by Boost can be found at:
+The integrator is setup in *src/cell.cpp* in the *solve()* function. nuDustC++ comes defaulted with a Runge–Kutta–Dormand–Prince 5 integrator. Additional information on the available integrators offered by Boost can be found at:
 
 https://www.boost.org/doc/libs/1_78_0/libs/numeric/odeint/doc/html/index.html
 
-nuDustC++ currently uses a makima 1-D interpolator. The interpolator is defined in *include/cell.h* in the 'cell' class declaration. Additional interpolators offered by Boost can be found at:
+nuDustC++ currently uses a Makima 1-D interpolator. The interpolator is defined in *include/cell.h* in the 'cell' class declaration. Additional interpolators offered by Boost can be found at:
 
 https://www.boost.org/doc/libs/1_78_0/libs/math/doc/html/interpolation.html
 
