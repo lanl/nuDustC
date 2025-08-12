@@ -169,6 +169,33 @@ Destruction With Shock Times and Velocities from a file:
 Destruction With User Input Shock Temperature & Velocity:
   Required Input Files: Shock Velocity, Shock Temperature, Shock Time, Pile up factor, Size Distribution file or Size Parameters, Abundance file, & Network file
 
+# Output Files
+During a run, an 'output' and 'restart' directory are created. Saved in the folders are output data as a function of time and restart files used to restart a run for each individal cell.
+
+The restart file is structured as:
+
+```
+time
+array of velocities
+array of dust size changes per bin
+the integrator solution array (abundances of gases, moments of each dust grain, size bins of each dust grain)
+```
+
+The output data is structured as:
+
+```
+names of grain species
+an array corresponding to the grain size of the size bin
+the initial integrator solution array (abundances of gases, moments of each dust grain, size bins of each dust grain)
+time 1
+the integrator solution array at time 1 (abundances of gases, moments of each dust grain, size bins of each dust grain)
+time 2
+the integrator solution array at time 2 (abundances of gases, moments of each dust grain, size bins of each dust grain)
+...
+time end
+the integrator solution array at time end (abundances of gases, moments of each dust grain, size bins of each dust grain)
+```
+
 # Selecting Integrators and Interpolators
 The integrator is setup in *src/cell.cpp* in the *solve()* function. nuDustC++ comes defaulted with a Runge–Kutta–Dormand–Prince 5 integrator. Additional information on the available integrators offered by Boost can be found at:
 
