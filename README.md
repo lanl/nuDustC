@@ -93,6 +93,8 @@ The input file is specified after the executable such as,
 $> ./nudustc++ -c /path/to/input/config/file/config_file.txt
 ```
 
+Descriptions of the input configuration file structure and data files are below.
+
 # Configuration File
 
 ### Integration Parameters
