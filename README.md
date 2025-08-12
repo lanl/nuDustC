@@ -87,6 +87,12 @@ where 'n' is the number of processors.
 ### Inputs
 Required: Config file. This lists the various input information such as data files, integration parameters, and calculation options.
 
+The input file is specified after the executable such as,
+
+```
+$> ./nudustc++ -c /path/to/input/config/file/config_file.txt
+```
+
 # Configuration File
 
 ### Integration Parameters
