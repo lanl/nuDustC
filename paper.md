@@ -62,14 +62,6 @@ Because of the post processing nature of <span style="font-family:qcr;">nudustc+
 
 Because <span style="font-family:qcr;">nudustc++</span> is a post processing code where data is read in separately for each cell with no data flow between cells, there is no shared memory and each cell can be computed independently. This results in an embarrassingly parallel process, allowing for simultaneous computation of each cell and thereby reducing runtime. 
 
-# Performance
-
-The Figure below shows a comparison between the python <span style="font-family:qcr;">sndust</span> using an implicit integrator versus <span style="font-family:qcr;">nudustc++</span> using an explicit integrator. At shorter solution lengths (smaller networks with fewer dust grain bins), the implicit integrator has a lot of overhead leading to an increased run time despite the shorter length. The explicit integrator in <span style="font-family:qcr;">C++</span> out performs the implicit integrator even at longer solution length. Overall, <span style="font-family:qcr;">nudustc++</span> outperforms the python version. It is also embarrassingly parallel. Utilizing OpenMP and MPI, the user can run many cells in parallel. 
-
-# Figures
-
-![Performance Comparison of <span style="font-family:qcr;">nudustc++</span> and implicit and explicit integrators.\label{fig:performance}](int_logtime_cycles.png)
-
 
 # Acknowledgements
 

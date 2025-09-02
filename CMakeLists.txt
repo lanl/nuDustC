@@ -34,8 +34,7 @@ endif()
 include(FetchContent)
 FetchContent_Declare(
   plog
-  GIT_REPOSITORY https://github.com/SergiusTheBest/plog.git
-  GIT_TAG 1.1.9)
+  GIT_REPOSITORY https://github.com/SergiusTheBest/plog.git)
 
 FetchContent_MakeAvailable(plog)
 
