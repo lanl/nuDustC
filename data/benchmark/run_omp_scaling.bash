@@ -10,7 +10,7 @@ else
     return 1 2>/dev/null || exit 1
 fi
 
-NDBIN_DIR="$SCRIPT_DIR/../../"
+NDBIN_DIR="$SCRIPT_DIR/../.."
 BM_OUT="$SCRIPT_DIR/bm_results.dat"
 BM_TMPF="${SCRIPT_DIR}/bm_tmp.txt"
 
@@ -22,18 +22,24 @@ echo "-------------------"
 NMAX=4
 i=1
 (  
+rm "$NDBIN_DIR"/output/*.dat
 cd "$NDBIN_DIR"
 while [[ $i -le $NMAX ]]; do
   echo -n "running n=$i..."
 
-  { /usr/bin/time ./nudustc++ -c data/benchmark/bm_config.ini -n "$i" ;} 2>"$BM_TMPF"
+  { /usr/bin/time ./nudustc++ -c data/benchmark/bm_config.ini -n "$i" > /dev/null ;} 2>"$BM_TMPF"
 
-  rm -f "$NDBIN_DIR/output/*"
 
-  XTIME=$(grep real "$BM_TMPF" | awk '{print $2}')
+  XTIME=$(grep real "$BM_TMPF" | awk '{print $1}')
   echo "completed in $XTIME"
   echo "$i $XTIME" >> "$BM_OUT"
   (( i = i * 2 ))
+
+  # wait for files to get written,
+  # if you get strange behavior it may 
+  # be worth it to increase this
+  sleep 1
+  rm "$NDBIN_DIR"/output/*.dat
 done
 )
 
