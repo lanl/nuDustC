@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
   // setup command-line options
   std::string config_filename;
   std::string log_filename;
+  int in_threads;
 
   po::options_description desc("nuDust options");
   desc.add_options()("help", "print help message")(
@@ -75,7 +76,7 @@ int main(int argc, char *argv[]) {
       "filename with runtime parameters")(
       "log_file,l",
       po::value<std::string>(&log_filename)->default_value("log.txt"),
-      "filename of log");
+      "filename of log")("num_threads,n", po::value<int>(&in_threads)->default_value(1),"number of parallel threads");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -92,6 +93,9 @@ int main(int argc, char *argv[]) {
     std ::cout << desc << "\n";
     return 1;
   }
+#ifdef NUDUSTC_ENABLE_OPENMP
+  omp_set_num_threads(in_threads);
+#endif
   banner();
 
   std ::cout << "\n";
@@ -107,6 +111,7 @@ int main(int argc, char *argv[]) {
     //std ::cout << "! configuration file = " << config_filename << "\n";
     std ::cout << "! pe = " << size << "\n";
   }
+  std ::cout << "! nt = " << in_threads << "\n";
   std ::cout << "! starting ...\n";
 #ifdef NUDUSTC_ENABLE_MPI
   MPI_Barrier(MPI_COMM_WORLD);
