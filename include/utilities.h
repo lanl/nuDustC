@@ -10,17 +10,44 @@ others to do so.*/
 
 #pragma once
 
+#ifdef NUDUSTC_ENABLE_MPI
+#include <mpi.h>
+#endif
+
+#ifdef NUDUSTC_ENABLE_OPENMP
+#include <omp.h>
+#endif
+
 namespace utilities
 {
 
 template<class T>
-inline constexpr auto square(const T& value){
+inline constexpr auto const square(const T& value){
   return value * value;
 }
 
 template<class T>
-inline constexpr auto cube(const T& value){
+inline constexpr auto const cube(const T& value){
   return value * value * value;
 }
+
+inline auto const my_rank()
+{
+  int rank = 0;
+#ifdef NUDUSTC_ENABLE_MPI
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+#endif
+  return rank;
+}
+
+inline auto const my_tid()
+{
+  int tid=0;
+#ifdef NUDUSTC_ENABLE_OPENMP
+  tid = omp_get_thread_num();
+#endif
+  return tid;
+}
+
 
 } // namespace utilities

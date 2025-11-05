@@ -725,14 +725,14 @@ nuDust::run()
         std::cout << "! Try again\n";
     }
 
-    #pragma omp parallel num_threads(2)
+    #pragma omp parallel default(shared)
     {
         #pragma omp for nowait
         for (auto i = 0; i < cells.size(); ++i)
         {
-            PLOGI << "running cell: " << cells[i].cid;
+            PLOGI << "running cell: " << cells[i].cid << "[RANK: " << utilities::my_rank() << " | THREAD: " << utilities::my_tid() << "]";
             cells[i].solve(); 
-            PLOGI << "finished cell: " << cells[i].cid;
+            PLOGI << "finished cell: " << cells[i].cid << "[RANK: " << utilities::my_rank() << " | THREAD: " << utilities::my_tid() << "]";
         }
     }
 

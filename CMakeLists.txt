@@ -106,6 +106,7 @@ target_compile_definitions(
   ${NUD_EXE}
   PRIVATE $<$<BOOL:${NUDUSTC_BENCHMARK}>:ENABLE_BENCHMARK>
           $<$<BOOL:${NUDUSTC_ENABLE_MPI}>:NUDUSTC_ENABLE_MPI>
+          $<$<BOOL:${NUDUSTC_ENABLE_OPENMP}>:NUDUSTC_ENABLE_OPENMP>
           # latest boost fails with gcc@12
           # https://github.com/boostorg/phoenix/issues/111
           BOOST_PHOENIX_STL_TUPLE_H_)
